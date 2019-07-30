@@ -14,7 +14,7 @@ Generate a more secure memorable-password, for use in Master Password.
 ## Usage
 
 ```python
-from ntlkpass.ntlkpass import NtlkPass
+from nltkpass.nltkpass import NltkPass
 np = NltkPass()
 np.add_source("brown")
 np.generate_password()
