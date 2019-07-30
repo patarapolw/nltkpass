@@ -1,8 +1,8 @@
 import nltk
-from random import shuffle, choice, randrange
 from pathlib import Path
 import string
 import dataclasses as dc
+from secrets import SystemRandom
 
 
 @dc.dataclass
@@ -15,6 +15,7 @@ class NltkPass:
     tagged_sents: set
     rare: dict
     common: set
+    rand = SystemRandom()
 
     def __init__(self):
         self.tagged_sents = set()
@@ -44,7 +45,7 @@ class NltkPass:
     def generate_sentence(self, rare_count: int = 5, specificity: int = None) -> str:
         tss = list(self.tagged_sents)
 
-        shuffle(tss)
+        self.rand.shuffle(tss)
 
         tss_i = 0
         rare_i = 0
@@ -62,8 +63,8 @@ class NltkPass:
             for ts_pos, ts_value in ts_map.items():
                 for pos, word_set in self.rare.items():
                     if pos[:specificity] == ts_pos:
-                        ts_i, _ = choice(tuple(ts_value.items()))
-                        ts[ts_i] = (choice(tuple(word_set)), f"{pos}_RAND")
+                        ts_i, _ = self.rand.choice(tuple(ts_value.items()))
+                        ts[ts_i] = (self.rand.choice(tuple(word_set)), f"{pos}_RAND")
                         rare_i += 1
 
                         break
@@ -87,15 +88,15 @@ class NltkPass:
 
         n = 0
         while n < punctuation_count:
-            position = randrange(len(words) + 1)
-            words.insert(position, choice(string.punctuation))
+            position = self.rand.randrange(len(words) + 1)
+            words.insert(position, self.rand.choice(string.punctuation))
 
             n += 1
 
         n = 0
         while n < digit_count:
-            position = randrange(len(words) + 1)
-            words.insert(position, choice(string.digits))
+            position = self.rand.randrange(len(words) + 1)
+            words.insert(position, self.rand.choice(string.digits))
 
             n += 1
 
