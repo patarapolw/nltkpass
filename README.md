@@ -1,4 +1,4 @@
-Experimental repo to generate a more secure [phrasepass](https://github.com/patarapolw/phrasepass) and memorable-password.
+Generate a more secure memorable-password, for use in Master Password.
 
 ## Common word lists
 
